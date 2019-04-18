@@ -1,0 +1,15 @@
+.main-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #fff;
+    text-decoration: none;
+    margin-right: 8px;
+}
+.main-title.centered {
+    margin-left: -40px;
+    flex: auto;
+    text-align: center;
+}
+.spacer {
+    flex: auto;
+}

@@ -1,0 +1,19 @@
+.back-button {
+    float: left;
+}
+.share-button {
+    float: right;
+    margin-bottom: 8px;
+}
+mat-divider {
+    clear: both;
+    margin-bottom: 64px;
+}
+.article-title {
+    text-align: center;
+}
+.article-content {
+    p {
+        text-indent: 4em;
+    }
+}
