@@ -1,0 +1,13 @@
+mat-card {
+    margin: 10vh auto 0 auto;
+    width: 30%;
+    min-width: 500px;
+    @media screen and (max-width: 500px) {
+        width: auto;
+        margin: 0;
+        min-width: 0;
+    }
+}
+mat-form-field {
+    display: block;
+}

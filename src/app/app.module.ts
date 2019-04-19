@@ -23,7 +23,7 @@ import { ArticleService } from './services/article.service';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireModule,
+    AngularFireAuthModule,
     CoreModule,
     MaterialModule
   ],
