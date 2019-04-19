@@ -10,21 +10,23 @@ import { User, auth } from 'firebase';
 })
 export class AuthService {
 
+  user: Observable<User>;
+
   constructor(private afAuth: AngularFireAuth, router: Router) {
-    // this.afAuth.authState.pipe(
-    //   skip(1),
-    //   map(user => !!user),
-    //   tap(authState => {
-    //     console.log(authState);
-    //     if(authState) {
-    //       // Signed in
-    //       router.navigate(['/account']);
-    //     } else {
-    //       // Signed out
-    //       router.navigate(['/auth']);
-    //     }
-    //   })
-    // )
+    this.user = afAuth.user;
+    // Redirect on authState changes
+    afAuth.authState.pipe(
+      skip(1),
+      map(authState => !!authState)
+    ).subscribe((newState) => {
+      if(newState) {
+        // Signed in
+        router.navigate(['/']);
+      } else {
+        // Signed out
+        router.navigate(['/auth']);
+      }
+    })
   }
 
   auth(email, password) {
@@ -38,7 +40,6 @@ export class AuthService {
   }
 
   signIn(email, password) {
-    console.log("sign in");
     this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
   
@@ -48,10 +49,6 @@ export class AuthService {
 
   signOut() {
     this.afAuth.auth.signOut();
-  }
-
-  get authenticated(): Observable<User> {
-    return null;
   }
 
 }

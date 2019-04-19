@@ -1,0 +1,4 @@
+<div class="page-margins" *ngIf="authService.user | async as user">
+  <h2>Signed in as {{user.email}}</h2>
+  <button mat-button (click)="authService.signOut()">Sign out</button>
+</div>

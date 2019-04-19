@@ -2,7 +2,7 @@
   <mat-sidenav #sidenav align="end">
     <mat-nav-list>
       <a mat-list-item [routerLink]="['/']">Home</a>
-      <a mat-list-item [routerLink]="['/auth']" color="accent" *ngIf="!(authService.authenticated | async)">Sign in or register</a>
+      <a mat-list-item [routerLink]="['/about']">About</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -13,9 +13,35 @@
       </a>
       <h1 *ngIf="(smallScreen | async)" class="main-title centered">The AI Journal</h1>
       <nav *ngIf="!(smallScreen | async)" class="spacer">
-        <a mat-button [routerLink]="['/']">Home</a>
+        <a mat-button [routerLink]="['/about']">About</a>
       </nav>
-      <a mat-raised-button [routerLink]="['auth']" *ngIf="!(smallScreen | async) && !(authService.authenticated | async)">Sign in or register</a>
+      <ng-container *ngIf="authService.user | async; else guestToolbar">
+        <button mat-icon-button [matMenuTriggerFor]="account" *ngIf="smallScreen | async; else email"><mat-icon>account_circle</mat-icon></button>
+        <ng-template #email>
+          <button mat-button [matMenuTriggerFor]="account">{{(authService.user | async)?.email}}</button>
+        </ng-template>
+        <mat-menu #account="matMenu" align="end">
+          <a mat-menu-item [routerLink]="['/account']">
+            <mat-icon>mode_edit</mat-icon>
+            <span>Articles</span>
+          </a>
+          <a mat-menu-item [routerLink]="['/account']">
+            <mat-icon>supervisor_account</mat-icon>
+            <span>Endorsements</span>
+          </a>
+          <mat-divider></mat-divider>
+          <a mat-menu-item [routerLink]="['/account']">
+            <mat-icon>account_circle</mat-icon>
+            <span>Account</span>
+          </a>
+        </mat-menu>
+      </ng-container>
+      <ng-template #guestToolbar>
+        <a mat-icon-button *ngIf="smallScreen | async; else bigScreen" [routerLink]="['/auth']"><mat-icon>account_circle</mat-icon></a>
+        <ng-template #bigScreen>
+          <a mat-raised-button [routerLink]="['/auth']">Sign in or register</a>
+        </ng-template>
+      </ng-template>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

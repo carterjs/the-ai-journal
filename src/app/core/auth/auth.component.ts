@@ -18,4 +18,8 @@ export class AuthComponent {
     this.authService.auth(this.email.value, this.password.value);
   }
 
+  signOut() {
+    this.authService.signOut();
+  }
+
 }

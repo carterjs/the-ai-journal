@@ -11,7 +11,7 @@ export class ArticleService {
   articles: Observable<any>;
 
   constructor(private af: AngularFirestore) {
-    this.articles = af.collection('articles').snapshotChanges().pipe(map(actions => {
+    this.articles = af.collection("articles").snapshotChanges().pipe(map(actions => {
       return actions.map(action => {
         const data = action.payload.doc.data();
         return {
