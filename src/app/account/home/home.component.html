@@ -2,3 +2,4 @@
   <h2>Signed in as {{user.email}}</h2>
   <button mat-button (click)="authService.signOut()">Sign out</button>
 </div>
+<p>{{authService.endorsements | async | json}}</p>

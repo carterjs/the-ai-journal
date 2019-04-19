@@ -21,13 +21,22 @@
           <button mat-button [matMenuTriggerFor]="account">{{(authService.user | async)?.email}}</button>
         </ng-template>
         <mat-menu #account="matMenu" align="end">
-          <a mat-menu-item [routerLink]="['/account']">
-            <mat-icon>mode_edit</mat-icon>
-            <span>Articles</span>
-          </a>
-          <a mat-menu-item [routerLink]="['/account']">
-            <mat-icon>supervisor_account</mat-icon>
-            <span>Endorsements</span>
+          <!-- Shown for endorsed users -->
+          <ng-container>
+            <a mat-menu-item [routerLink]="['/account/articles']">
+              <mat-icon>mode_edit</mat-icon>
+              <span>Articles</span>
+            </a>
+            <a mat-menu-item [routerLink]="['/account/endorsements']">
+              <mat-icon>supervisor_account</mat-icon>
+              <span>Endorsements</span>
+            </a>
+          </ng-container>
+          <mat-divider></mat-divider>
+          <!-- Shown for all users -->
+          <a mat-menu-item [routerLink]="['/account/favorites']">
+            <mat-icon>star_rate</mat-icon>
+            <span>Favorites</span>
           </a>
           <mat-divider></mat-divider>
           <a mat-menu-item [routerLink]="['/account']">

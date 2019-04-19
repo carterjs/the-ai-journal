@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { skip, map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, empty } from 'rxjs';
 import { User, auth } from 'firebase';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,20 @@ import { User, auth } from 'firebase';
 export class AuthService {
 
   user: Observable<User>;
+  endorsements: Observable<any>;
 
-  constructor(private afAuth: AngularFireAuth, router: Router) {
+  constructor(af: AngularFirestore, private afAuth: AngularFireAuth, router: Router) {
     this.user = afAuth.user;
     // Redirect on authState changes
     afAuth.authState.pipe(
+      tap((user) => {
+        if(!!user) {
+          this.endorsements = af.doc(`endorsements/${user.uid}`).valueChanges();
+          this.endorsements.subscribe(e => console.log(e));
+        } else {
+          this.endorsements = empty();
+        }
+      }),
       skip(1),
       map(authState => !!authState)
     ).subscribe((newState) => {
