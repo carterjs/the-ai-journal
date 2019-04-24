@@ -12,7 +12,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class AuthService {
 
   user: Observable<User>;
-  endorsements: Observable<any>;
+  data: Observable<any>;
 
   constructor(af: AngularFirestore, private afAuth: AngularFireAuth, router: Router) {
     this.user = afAuth.user;
@@ -20,10 +20,9 @@ export class AuthService {
     afAuth.authState.pipe(
       tap((user) => {
         if(!!user) {
-          this.endorsements = af.doc(`endorsements/${user.uid}`).valueChanges();
-          this.endorsements.subscribe(e => console.log(e));
+          this.data = af.doc(`users/${user.uid}`).valueChanges();
         } else {
-          this.endorsements = empty();
+          this.data = empty();
         }
       }),
       skip(1),
