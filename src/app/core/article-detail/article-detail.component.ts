@@ -11,12 +11,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ArticleDetailComponent {
 
-  article$: Observable<any>;
+  id$: Observable<any>;
 
   constructor(private articleService: ArticleService, route: ActivatedRoute) {
-    route.paramMap.subscribe(params => {
-      this.article$ = articleService.get(params.get('id'));
-    });
+    this.id$ = route.paramMap.pipe(map(params => params.get('id')));
   }
 
 }

@@ -2,8 +2,16 @@
   <a mat-icon-button [routerLink]="['/']" class="back-button"><mat-icon>chevron_left</mat-icon></a>
   <button mat-icon-button class="share-button"><mat-icon>share</mat-icon></button>
   <mat-divider></mat-divider>
-  <section *ngIf="article$ | async as article" class="mat-typography">
-    <h1 class="article-title">{{article.title}}</h1>
-    <div [innerHTML]="article.content"></div>
+  <section *ngIf="id$ | async as id" class="mat-typography">
+    <ng-container *ngIf="articleService.get(id) as article">
+      <ng-container *ngIf="article.authorData; else loading">
+        <h1>{{article.title}}</h1>
+        <h3>{{article.authorData.name}}</h3>
+        <div [innerHTML]="article.content"></div>
+      </ng-container>
+      <ng-template #loading>
+        <mat-spinner style="margin: auto;"></mat-spinner>
+      </ng-template>
+    </ng-container>
   </section>
 </div>

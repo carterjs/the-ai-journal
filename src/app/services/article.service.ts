@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
@@ -8,22 +8,32 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class ArticleService {
 
-  articles: Observable<any>;
+  articles: any[] = [];
 
   constructor(private af: AngularFirestore) {
-    this.articles = af.collection("articles").snapshotChanges().pipe(map(actions => {
-      return actions.map(action => {
-        const data = action.payload.doc.data();
+    af.collection('articles').ref.get().then(articles => {
+      this.articles = articles.docs.map(article => {
         return {
-          id: action.payload.doc.id,
-          ...data
+          id: article.id,
+          ...article.data()
         };
       });
-    }));
+      articles.docs.forEach((article, index) => {
+        af.doc('users/' + article.data().author).ref.get().then(user => {
+          this.articles[index].authorData = user.data();
+        });
+      });
+    });
   }
 
   get(id: string) {
-    return this.af.doc('articles/' + id).valueChanges();
+    const f = this.articles.filter(article => article.id == id);
+    return f.length > 0 ? f[0] : null;
+  }
+
+  getByAuthor(uid: string) {
+    const f = this.articles.filter(article => article.author == uid);
+    return f.length > 0 ? f[0] : null;
   }
 
 }

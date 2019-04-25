@@ -1,5 +1,8 @@
-<mat-list>
-  <mat-list-item *ngFor="let article of articleService.articles | async">
+<mat-list *ngIf="articleService.articles as articles; else loading">
+  <mat-list-item *ngFor="let article of articleService.articles">
     <a mat-button [routerLink]="['/' + article.id]">{{article.title}}</a>
   </mat-list-item>
 </mat-list>
+<ng-template #loading>
+  <mat-spinner style="margin: auto;"></mat-spinner>
+</ng-template>
