@@ -9,9 +9,6 @@
     display: block;
     margin-bottom: 64px;
 }
-.left, .right {
-    display: block;
-}
 .left {
     float: left;
     width: 50%;
@@ -19,6 +16,13 @@
 .right {
     float: right;
     width: 50%;
+}
+.left, .right {
+    display: block;
+    @media screen and (max-width: 500px) {
+        float: none;
+        width: 100%;
+    }
 }
 .featured {
     overflow: hidden;

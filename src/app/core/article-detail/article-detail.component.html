@@ -1,5 +1,5 @@
-<div class="page-margins">
-  <section *ngIf="id$ | async as id" class="mat-typography">
+<div class="page-margins" *ngIf="id$ | async as id">
+  <section [@load]="!!articleService.get(id) ? 'shown' : 'hidden'" class="mat-typography">
     <ng-container *ngIf="articleService.get(id) as article">
       <mat-button-toggle-group class="rating" #group="matButtonToggleGroup">
         <mat-button-toggle>
@@ -19,9 +19,6 @@
         <mat-divider></mat-divider>
         <div  class="content" [innerHTML]="article.content"></div>
       </ng-container>
-      <ng-template #loading>
-        <mat-spinner style="margin: auto;"></mat-spinner>
-      </ng-template>
     </ng-container>
   </section>
 </div>

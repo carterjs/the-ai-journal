@@ -1,57 +1,56 @@
-<div class="page-margins">
-  <div class="featured" *ngIf="articleService.articles as articles; else loading">
-    <h2>Featured</h2>
-    <div class="left" *ngIf="articles[0] as featured">
-      <mat-card>
-        <img mat-card-image [src]="featured.image" alt="">
-        <mat-card-header>
-          <mat-card-title>{{featured.title}}</mat-card-title>
-          <mat-card-subtitle>{{featured.authorData ? "by " + featured.authorData.name : ""}}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content align="end">
-          <p class="article-description">{{featured.description}}</p>
-          <a mat-button [routerLink]="['/' + featured.id]">Read more</a>
-        </mat-card-content>
-      </mat-card>
+<div [@load]="loaded() ? 'shown' : 'hidden'" class="page-margins">
+  <ng-container *ngIf="loaded() as articles; else loading">
+    <div class="featured">
+      <h2>Featured</h2>
+      <div class="left" *ngIf="articles[0] as featured">
+        <mat-card>
+          <img  (loaded)="loaded()" mat-card-image [src]="featured.image" alt="">
+          <mat-card-header>
+            <mat-card-title>{{featured.title}}</mat-card-title>
+            <mat-card-subtitle>{{featured.authorData ? "by " + featured.authorData.name : ""}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content align="end">
+            <p class="article-description">{{featured.description}}</p>
+            <a mat-button [routerLink]="['/' + featured.id]">Read more</a>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="right">
+        <mat-nav-list>
+          <mat-divider></mat-divider>   
+          <ng-container *ngFor="let article of articles.slice(1)">
+            <a mat-list-item [routerLink]="['/' + article.id]">
+              <span style="font-weight: bold" mat-line>{{article.title}}</span>
+              <span mat-line>{{article.description}}</span>
+              <mat-icon></mat-icon>
+            </a>
+            <mat-divider></mat-divider>
+          </ng-container>
+        </mat-nav-list>
+      </div>
     </div>
-    <div class="right">
-      <mat-nav-list>
-        <mat-divider></mat-divider>   
-        <ng-container *ngFor="let article of articles.slice(1)">
-          <a mat-list-item [routerLink]="['/' + article.id]">
-            <span style="font-weight: bold" mat-line>{{article.title}}</span>
+    <div class="search">
+      <div class="search-bar">
+        <mat-form-field class="search-input">
+          <input matInput type="text" [(ngModel)]="query" (ngModelChange)="filter()" placeholder="Search">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Target</mat-label>
+          <mat-select [(ngModel)]="target" (ngModelChange)="filter()" value="title">
+            <mat-option value="title">Title</mat-option>
+            <mat-option value="description">Description</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <mat-nav-list *ngIf="articleService.articles as articles">
+        <ng-container *ngFor="let article of filter()">
+          <a mat-list-item class="article-title" [routerLink]="['/' + article.id]">
+            <span style="font-weight: bold" mat-line class="article-title">{{article.title}}</span>
             <span mat-line>{{article.description}}</span>
-            <mat-icon></mat-icon>
           </a>
           <mat-divider></mat-divider>
         </ng-container>
       </mat-nav-list>
     </div>
-  </div>
-  <ng-template #loading>
-    <mat-spinner style="margin: auto;"></mat-spinner>
-  </ng-template>
-  <div class="search">
-    <div class="search-bar">
-      <mat-form-field class="search-input">
-        <input matInput type="text" [(ngModel)]="query" (ngModelChange)="filter()" placeholder="Search">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Target</mat-label>
-        <mat-select [(ngModel)]="target" (ngModelChange)="filter()" value="title">
-          <mat-option value="title">Title</mat-option>
-          <mat-option value="description">Description</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <mat-nav-list *ngIf="articleService.articles as articles">
-      <ng-container *ngFor="let article of filter()">
-        <a mat-list-item class="article-title" [routerLink]="['/' + article.id]">
-          <span style="font-weight: bold" mat-line class="article-title">{{article.title}}</span>
-          <span mat-line>{{article.description}}</span>
-        </a>
-        <mat-divider></mat-divider>
-      </ng-container>
-    </mat-nav-list>
-  </div>
+  </ng-container>
 </div>

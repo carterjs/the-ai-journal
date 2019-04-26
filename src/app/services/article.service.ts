@@ -8,7 +8,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class ArticleService {
 
-  articles: any[] = [];
+  articles: any[];
 
   constructor(private af: AngularFirestore) {
     af.collection('articles').ref.get().then(articles => {
@@ -27,12 +27,12 @@ export class ArticleService {
   }
 
   get(id: string) {
-    const f = this.articles.filter(article => article.id == id);
+    const f = (this.articles || []).filter(article => article.id == id);
     return f.length > 0 ? f[0] : null;
   }
 
   getByAuthor(uid: string) {
-    return this.articles.filter(article => article.author == uid);
+    return (this.articles || []).filter(article => article.author == uid);
   }
 
 }

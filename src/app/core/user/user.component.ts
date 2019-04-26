@@ -3,11 +3,15 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ArticleService } from 'src/app/services/article.service';
+import { load } from 'src/app/animations/load';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
+  animations: [
+    load
+  ]
 })
 export class UserComponent {
 

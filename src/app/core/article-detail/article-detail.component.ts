@@ -3,11 +3,15 @@ import { ArticleService } from 'src/app/services/article.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { load } from 'src/app/animations/load';
 
 @Component({
   selector: 'app-article-detail',
   templateUrl: './article-detail.component.html',
-  styleUrls: ['./article-detail.component.scss']
+  styleUrls: ['./article-detail.component.scss'],
+  animations: [
+    load
+  ]
 })
 export class ArticleDetailComponent {
 

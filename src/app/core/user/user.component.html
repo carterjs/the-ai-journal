@@ -1,9 +1,11 @@
-<div class="page-margins" *ngIf="user$ | async as user">
-  <h1>{{user.name}}</h1>
-  <p [innerHTML]="user.bio"></p>
-  <mat-divider></mat-divider>
-  <h2>Articles</h2>
-  <mat-nav-list>
-    <a mat-list-item *ngFor="let article of articleService.getByAuthor(uid)" [routerLink]="['/' + article.id]">{{article.title}}</a>
-  </mat-nav-list>
+<div class="page-margins" [@load]="(user$ | async) ? 'shown' : 'hidden'">
+  <ng-container *ngIf="user$ | async as user">
+    <h1>{{user.name}}</h1>
+    <p [innerHTML]="user.bio"></p>
+    <mat-divider></mat-divider>
+    <h2>Articles</h2>
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let article of articleService.getByAuthor(uid)" [routerLink]="['/' + article.id]">{{article.title}}</a>
+    </mat-nav-list>
+  </ng-container>
 </div>
