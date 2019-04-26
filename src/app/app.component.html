@@ -21,28 +21,19 @@
           <button mat-button [matMenuTriggerFor]="account">{{(authService.user | async)?.email}}</button>
         </ng-template>
         <mat-menu #account="matMenu" align="end">
-          <!-- Shown for endorsed users -->
-          <ng-container>
-            <a mat-menu-item [routerLink]="['/account/articles']">
-              <mat-icon>mode_edit</mat-icon>
-              <span>Articles</span>
-            </a>
-            <a mat-menu-item [routerLink]="['/account/endorsements']">
-              <mat-icon>supervisor_account</mat-icon>
-              <span>Endorsements</span>
-            </a>
-          </ng-container>
-          <mat-divider></mat-divider>
-          <!-- Shown for all users -->
-          <a mat-menu-item [routerLink]="['/account/favorites']">
-            <mat-icon>star_rate</mat-icon>
-            <span>Favorites</span>
+          <a mat-menu-item [routerLink]="['/account/articles']">
+            <mat-icon>mode_edit</mat-icon>
+            <span>Articles</span>
           </a>
-          <mat-divider></mat-divider>
           <a mat-menu-item [routerLink]="['/account']">
             <mat-icon>account_circle</mat-icon>
             <span>Account</span>
           </a>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="authService.signOut()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Sign out</span>
+          </button>
         </mat-menu>
       </ng-container>
       <ng-template #guestToolbar>

@@ -1,3 +1,32 @@
-<p>
-  article-editor works!
-</p>
+<div class="page-margins" *ngIf="id$ | async as id">
+  <ng-container *ngIf="fetch(id) && !!next">
+    <mat-tab-group dynamicHeight mat-stretch-tabs>
+      <mat-tab label="Edit">
+        <div class="wrapper">
+          <mat-form-field>
+            <input matInput type="text" [(ngModel)]="next.title" placeholder="Title">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput cdkTextareaAutosize [(ngModel)]="next.description"></textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Content</mat-label>
+            <textarea matInput cdkTextareaAutosize [(ngModel)]="next.content"></textarea>
+            <mat-hint>use HTML!</mat-hint>
+          </mat-form-field>
+        </div>
+      </mat-tab>
+      <mat-tab label="Preview">
+        <div class="wrapper">
+          <div [innerHTML]="next.content"></div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+    <div class="actions" align="end">
+      <button mat-raised-button (click)="reset()" color="warn" [disabled]="noChanges()">Discard</button>
+      <button mat-raised-button (click)="submit(id)" color="accent">Save</button>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,26 @@
+mat-form-field {
+    width: 100%;
+    margin-bottom: 64px;
+}
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: visible;
+    mat-card {
+        margin: 16px;
+        width: calc(50% - 64px);
+        .article-description {
+            height: 100px;
+            overflow: hidden;
+            padding: 0 16px 0 16px;
+            text-align: left;
+        }
+        .controlled-image {
+            background-size: cover;
+            height: 100px;
+        }
+        @media screen and (max-width: 500px) {
+            width: 100%;
+        }
+    }
+}

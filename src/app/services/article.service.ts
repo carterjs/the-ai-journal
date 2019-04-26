@@ -11,19 +11,26 @@ export class ArticleService {
   articles: any[];
 
   constructor(private af: AngularFirestore) {
-    af.collection('articles').ref.get().then(articles => {
-      this.articles = articles.docs.map(article => {
+    af.collection('articles').snapshotChanges().subscribe(articles => {
+      this.articles = articles.map(article => {
         return {
-          id: article.id,
-          ...article.data()
+          id: article.payload.doc.id,
+          ...article.payload.doc.data()
         };
       });
-      articles.docs.forEach((article, index) => {
-        af.doc('users/' + article.data().author).ref.get().then(user => {
-          this.articles[index].authorData = user.data();
-        });
+      articles.forEach((article, index) => {
+        const data = article.payload.doc.data() as {author: string};
+        if('author' in data) {
+          af.doc('users/' + data.author).snapshotChanges().subscribe(authorDoc => {
+            this.articles[index].authorData = authorDoc.payload.data();
+          });
+        }
       });
     });
+  }
+
+  fetch() {
+    
   }
 
   get(id: string) {
@@ -33,6 +40,10 @@ export class ArticleService {
 
   getByAuthor(uid: string) {
     return (this.articles || []).filter(article => article.author == uid);
+  }
+
+  update(id, newData: {}) {
+    return this.af.doc('articles/' + id).update(newData);
   }
 
 }
