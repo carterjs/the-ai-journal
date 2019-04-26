@@ -1,13 +1,23 @@
 <div class="page-margins">
-  <a mat-icon-button [routerLink]="['/']" class="back-button"><mat-icon>chevron_left</mat-icon></a>
-  <button mat-icon-button class="share-button"><mat-icon>share</mat-icon></button>
-  <mat-divider></mat-divider>
   <section *ngIf="id$ | async as id" class="mat-typography">
     <ng-container *ngIf="articleService.get(id) as article">
+      <mat-button-toggle-group class="rating" #group="matButtonToggleGroup">
+        <mat-button-toggle>
+          <mat-icon>thumb_up</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle>
+          <mat-icon>thumb_down</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
       <ng-container *ngIf="article.authorData; else loading">
-        <h1>{{article.title}}</h1>
-        <h3>{{article.authorData.name}}</h3>
-        <div [innerHTML]="article.content"></div>
+        <h1 class="mat-display-1">{{article.title}}</h1> 
+        <mat-divider></mat-divider>
+        <div class="data">
+          <span class="author">by <a [routerLink]="['/users/' + article.author]">{{article.authorData.name}}</a></span>
+          <span class="date">{{article.date.seconds * 1000 | date}}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div  class="content" [innerHTML]="article.content"></div>
       </ng-container>
       <ng-template #loading>
         <mat-spinner style="margin: auto;"></mat-spinner>

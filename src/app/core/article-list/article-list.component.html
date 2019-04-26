@@ -1,8 +1,45 @@
-<mat-list *ngIf="articleService.articles as articles; else loading">
-  <mat-list-item *ngFor="let article of articleService.articles">
-    <a mat-button [routerLink]="['/' + article.id]">{{article.title}}</a>
-  </mat-list-item>
-</mat-list>
+<!-- 
+<div class="article-list" *ngIf="articleService.articles as articles; else loading">
+  <mat-card *ngFor="let article of articleService.articles">
+    <mat-card-header>
+      <mat-card-title>{{article.title}}</mat-card-title>
+      <mat-card-subtitle>by Carter Schmalzle</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content align="end">
+      <p class="article-description">{{article.content}}</p>
+      <button mat-button>Read</button>
+    </mat-card-content>
+  </mat-card>
+</div> -->
+<div *ngIf="articleService.articles as articles; else loading">
+  <h2>Featured</h2>
+  <div class="left" *ngIf="articles[0] as featured">
+    <mat-card>
+      <img mat-card-image [src]="featured.image" alt="">
+      <mat-card-header>
+        <mat-card-title>{{featured.title}}</mat-card-title>
+        <mat-card-subtitle>by Carter Schmalzle</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content align="end">
+        <p class="article-description">{{featured.content}}</p>
+        <a mat-button [routerLink]="['/' + featured.id]">Read more</a>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="right">
+    <mat-nav-list>
+      <mat-divider></mat-divider>   
+      <ng-container *ngFor="let article of articles; let i = index">
+        <a mat-list-item [routerLink]="['/' + article.id]">
+          <h1 style="font-weight: bold" mat-line>{{article.title}}</h1>
+          <p mat-line>{{article.content}}</p>
+          <mat-icon></mat-icon>
+        </a>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-nav-list>
+  </div>
+</div>
 <ng-template #loading>
   <mat-spinner style="margin: auto;"></mat-spinner>
 </ng-template>

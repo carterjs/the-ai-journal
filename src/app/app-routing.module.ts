@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './core/home/home.component';
 import { AuthComponent } from './core/auth/auth.component';
 import { ArticleDetailComponent } from './core/article-detail/article-detail.component';
+import { GuestGuard } from './guards/guest.guard';
+import { UserGuard } from './guards/user.guard';
+import { UserComponent } from './core/user/user.component';
 
 const routes: Routes = [
   {
@@ -12,11 +15,17 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    component: AuthComponent
+    component: AuthComponent,
+    canActivate: [GuestGuard]
   },
   {
     path: 'account',
-    loadChildren: './account/account.module#AccountModule'
+    loadChildren: './account/account.module#AccountModule',
+    canActivate: [UserGuard]
+  },
+  {
+    path: 'users/:uid',
+    component: UserComponent
   },
   {
     path: ':id',

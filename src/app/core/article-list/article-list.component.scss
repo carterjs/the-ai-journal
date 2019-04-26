@@ -1,0 +1,25 @@
+.article-description {
+    margin: 0 16px 0 16px;
+    text-align: left;
+}
+.article-title {
+    font-weight: bold;
+}
+.featured {
+    display: block;
+    margin-bottom: 64px;
+}
+.left, .right {
+    display: block;
+}
+.left {
+    float: left;
+    width: 50%;
+}
+.right {
+    float: right;
+    width: 50%;
+}
+mat-nav-list {
+    margin: 0 5% 0 5%;
+}

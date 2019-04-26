@@ -30,7 +30,7 @@ export class AuthService {
     ).subscribe((newState) => {
       if(newState) {
         // Signed in
-        router.navigate(['/']);
+        router.navigate(['/account']);
       } else {
         // Signed out
         router.navigate(['/auth']);

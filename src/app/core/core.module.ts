@@ -6,14 +6,16 @@ import { ArticleListComponent } from './article-list/article-list.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
-  declarations: [HomeComponent, AuthComponent, ArticleListComponent, ArticleDetailComponent],
+  declarations: [HomeComponent, AuthComponent, ArticleListComponent, ArticleDetailComponent, UserComponent],
   imports: [
     RouterModule,
     CommonModule,
     MaterialModule,
+    FormsModule,
     ReactiveFormsModule
   ]
 })

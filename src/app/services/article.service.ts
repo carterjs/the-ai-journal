@@ -32,8 +32,7 @@ export class ArticleService {
   }
 
   getByAuthor(uid: string) {
-    const f = this.articles.filter(article => article.author == uid);
-    return f.length > 0 ? f[0] : null;
+    return this.articles.filter(article => article.author == uid);
   }
 
 }

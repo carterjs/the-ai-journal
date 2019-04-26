@@ -5,10 +5,6 @@
     float: right;
     margin-bottom: 8px;
 }
-mat-divider {
-    clear: both;
-    margin-bottom: 64px;
-}
 .article-title {
     text-align: center;
 }
@@ -16,4 +12,20 @@ mat-divider {
     p {
         text-indent: 4em;
     }
+}
+.rating {
+    float: right;
+}
+.data {
+    padding: 16px;
+    overflow: hidden;
+    .author {
+        float: left;
+    }
+    .date {
+        float: right;
+    }
+}
+.content {
+    margin-top: 64px;
 }
