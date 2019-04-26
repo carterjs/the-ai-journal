@@ -42,3 +42,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         margin: 5%;
     }
 }
+
+.left {
+    float: left;
+    width: 48%;
+}
+.right {
+    float: right;
+    width: 48%;
+}
+.left, .right {
+    display: block;
+    @media screen and (max-width: 500px) {
+        float: none;
+        width: 100%;
+    }
+}

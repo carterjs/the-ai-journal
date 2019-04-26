@@ -9,21 +9,6 @@
     display: block;
     margin-bottom: 64px;
 }
-.left {
-    float: left;
-    width: 50%;
-}
-.right {
-    float: right;
-    width: 50%;
-}
-.left, .right {
-    display: block;
-    @media screen and (max-width: 500px) {
-        float: none;
-        width: 100%;
-    }
-}
 .featured {
     overflow: hidden;
     padding-bottom: 64px;
@@ -33,10 +18,4 @@
 }
 mat-form-field {
     display: block;
-}
-.search-bar {
-    display: flex;
-    .search-input {
-        flex: auto;
-    }
 }

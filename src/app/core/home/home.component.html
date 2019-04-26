@@ -16,41 +16,9 @@
         </mat-card>
       </div>
       <div class="right">
-        <mat-nav-list>
-          <mat-divider></mat-divider>   
-          <ng-container *ngFor="let article of articles.slice(1)">
-            <a mat-list-item [routerLink]="['/' + article.id]">
-              <span style="font-weight: bold" mat-line>{{article.title}}</span>
-              <span mat-line>{{article.description}}</span>
-              <mat-icon></mat-icon>
-            </a>
-            <mat-divider></mat-divider>
-          </ng-container>
-        </mat-nav-list>
+        <app-article-list [articles]="articles.slice(1)"></app-article-list>
       </div>
     </div>
-    <div class="search">
-      <div class="search-bar">
-        <mat-form-field class="search-input">
-          <input matInput type="text" [(ngModel)]="query" (ngModelChange)="filter()" placeholder="Search">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Target</mat-label>
-          <mat-select [(ngModel)]="target" (ngModelChange)="filter()" value="title">
-            <mat-option value="title">Title</mat-option>
-            <mat-option value="description">Description</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <mat-nav-list *ngIf="articleService.articles as articles">
-        <ng-container *ngFor="let article of filter()">
-          <a mat-list-item class="article-title" [routerLink]="['/' + article.id]">
-            <span style="font-weight: bold" mat-line class="article-title">{{article.title}}</span>
-            <span mat-line>{{article.description}}</span>
-          </a>
-          <mat-divider></mat-divider>
-        </ng-container>
-      </mat-nav-list>
-    </div>
+    <app-article-search [articles]="articles"></app-article-search>
   </ng-container>
 </div>

@@ -1,0 +1,11 @@
+<mat-nav-list>
+  <mat-divider *ngIf="divided && firstDivider"></mat-divider>   
+  <ng-container *ngFor="let article of articles">
+    <a mat-list-item [routerLink]="[path + article.id]">
+      <h1 style="font-weight: bold" mat-line>{{article.title}}</h1>
+      <p mat-line>{{article.content}}</p>
+      <mat-icon></mat-icon>
+    </a>
+    <mat-divider *ngIf="divided"></mat-divider>
+  </ng-container>
+</mat-nav-list>

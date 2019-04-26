@@ -1,0 +1,15 @@
+<div class="search">
+  <div class="search-bar">
+    <mat-form-field class="search-input">
+      <input matInput type="text" [(ngModel)]="query" placeholder="Search">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Target</mat-label>
+      <mat-select [(ngModel)]="target" value="title">
+        <mat-option value="title">Title</mat-option>
+        <mat-option value="description">Description</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <app-article-list [articles]="filter(query, target)" [divided]="false" [path]="path"></app-article-list>
+</div>
