@@ -1,0 +1,6 @@
+<h2>{{data.tag}}</h2>
+<ng-container *ngFor="let source of data.sources; let i = index">
+  <mat-divider *ngIf="i > 0"></mat-divider>
+  <a [href]="source.url">{{source.url}}</a>
+  <p>{{source.description}}</p>
+</ng-container>

@@ -6,16 +6,19 @@ import { HomeComponent } from './home/home.component';
 import { MaterialModule } from '../material.module';
 import { ArticleEditorComponent } from './article-editor/article-editor.component';
 import { ArticleListComponent } from './article-list/article-list.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ArticleFormComponent } from './article-form/article-form.component';
+import { SourceFormDialogComponent } from './source-form-dialog/source-form-dialog.component';
 
 @NgModule({
-  declarations: [HomeComponent, ArticleEditorComponent, ArticleListComponent, ArticleFormComponent],
+  declarations: [HomeComponent, ArticleEditorComponent, ArticleListComponent, ArticleFormComponent, SourceFormDialogComponent],
   imports: [
     CommonModule,
     AccountRoutingModule,
     MaterialModule,
-    FormsModule
-  ]
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  entryComponents: [SourceFormDialogComponent]
 })
 export class AccountModule { }

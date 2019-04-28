@@ -19,7 +19,7 @@
             <span class="date">{{article.date.seconds * 1000 | date}}</span>
           </div>
           <mat-divider></mat-divider>
-          <div  class="content" [innerHTML]="article.content"></div>
+          <div  class="content" [innerHTML]="withSources(article.content)"></div>
         </ng-container>
       </div>
     </ng-container>

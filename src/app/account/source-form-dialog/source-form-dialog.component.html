@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Source</h1>
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <input matInput type="text" formControlName="tag" placeholder="Tag">
+    <mat-error *ngIf="form.get('tag').errors && form.get('tag').errors.required">Every source needs a tag</mat-error>
+    <mat-error *ngIf="form.get('tag').errors && form.get('tag').errors.pattern">That tag is invalid</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput cdkTextareaAutosize formControlName="description"></textarea>
+    <mat-error *ngIf="form.get('description').errors && form.get('description').errors.required">Every source needs a description</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" formControlName="url" placeholder="URL">
+    <mat-error *ngIf="form.get('url').errors && form.get('url').errors.required">Every source needs a URL</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()" color="warn">Cancel</button>
+  <button mat-button (click)="save()" cdkFocusInitial [disabled]="form.invalid" color="accent">Save</button>
+</mat-dialog-actions>

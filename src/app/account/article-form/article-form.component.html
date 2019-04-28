@@ -1,46 +1,37 @@
-<mat-tab-group dynamicHeight mat-stretch-tabs>
-  <mat-tab label="Edit">
-    <div class="page-margins">
-      <mat-form-field>
-        <input matInput type="text" [(ngModel)]="state.title" placeholder="Title">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text" [(ngModel)]="state.image" placeholder="Banner Image">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Description</mat-label>
-        <textarea matInput cdkTextareaAutosize [(ngModel)]="state.description"></textarea>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Content</mat-label>
-        <textarea matInput cdkTextareaAutosize [(ngModel)]="state.content"></textarea>
-        <mat-hint>use HTML!</mat-hint>
-      </mat-form-field>
-      <mat-divider></mat-divider>
-      <h2>Sources</h2>
-      <button mat-button (click)="addSource()">Add new</button>
-      <ng-container *ngFor="let source of state.sources; let i = index">
-        <mat-divider *ngIf="i > 0"></mat-divider>
+<div class="article-banner" [style.backgroundImage]="'url(' + state.image + ')'"></div>
+<div class="page-margins">
+  <h2>Data</h2>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="state.image" placeholder="Banner Image">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="state.title" placeholder="Title">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput cdkTextareaAutosize [(ngModel)]="state.description"></textarea>
+  </mat-form-field>
+  <h2>Sources</h2>
+  <button mat-button (click)="addSource()">Add new</button>
+  <ul>
+    <li *ngFor="let source of state.sources; let i = index" [title]="source.description">
+      <a [href]="source.url" target="_blank">{{source.tag}}</a>
+      <button mat-icon-button (click)="editSource(i)"><mat-icon>mode_edit</mat-icon></button>
+    </li>
+  </ul>
+  <h2>Content</h2>
+  <mat-tab-group dynamicHeight mat-stretch-tabs>
+    <mat-tab label="Edit">
+      <div class="wrapper">
         <mat-form-field>
-          <span matPrefix>#</span>
-          <input matInput type="text" [(ngModel)]="source.tag" placeholder="tag">
+          <mat-label>Content</mat-label>
+          <textarea matInput cdkTextareaAutosize [(ngModel)]="state.content"></textarea>
+          <mat-hint>use HTML!</mat-hint>
         </mat-form-field>
-        <mat-form-field>
-          <mat-label>Description</mat-label>
-          <textarea matInput cdkTextareaAutosize [(ngModel)]="source.description"></textarea>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="text" [(ngModel)]="source.url" placeholder="URL">
-        </mat-form-field>
-      </ng-container>
-      
-    </div>
-  </mat-tab>
-  <mat-tab label="Preview">
-    <div class="article-banner" [style.backgroundImage]="'url(' + state.image + ')'"></div>
-    <div class="page-margins">
-      <h1 class="mat-body-4">{{state.title}}</h1>
-      <div [innerHTML]="state.content"></div>
-    </div>
-  </mat-tab>
-</mat-tab-group>
+      </div>
+    </mat-tab>
+    <mat-tab label="Preview">
+      <div class="wrapper" [innerHTML]="state.content"></div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

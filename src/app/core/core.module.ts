@@ -9,9 +9,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from '../shared/shared.module';
+import { SourceSheetComponent } from './source-sheet/source-sheet.component';
 
 @NgModule({
-  declarations: [HomeComponent, AuthComponent, ArticleDetailComponent, UserComponent],
+  declarations: [HomeComponent, AuthComponent, ArticleDetailComponent, UserComponent, SourceSheetComponent],
   imports: [
     RouterModule,
     CommonModule,
@@ -20,6 +21,7 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     SharedModule
-  ]
+  ],
+  entryComponents: [SourceSheetComponent]
 })
 export class CoreModule { }

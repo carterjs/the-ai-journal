@@ -4,7 +4,7 @@
     <div class="actions page-margins" align="end">
       <mat-divider></mat-divider>
       <button mat-raised-button (click)="reset()" color="warn" [disabled]="noChanges()">Discard</button>
-      <button mat-raised-button (click)="submit(id)" color="accent">Save</button>
+      <button mat-raised-button (click)="submit(id)" color="accent" [disabled]="noChanges()">Save</button>
       <button (click)="addSource()">Add source</button>
     </div>
   </ng-container>

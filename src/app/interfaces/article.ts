@@ -1,8 +1,4 @@
-interface Source {
-    tag: string;
-    description: string;
-    url: string;
-}
+import { Source } from './source';
 
 export interface Article {
     title: string;
