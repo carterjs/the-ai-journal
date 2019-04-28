@@ -1,0 +1,46 @@
+<mat-tab-group dynamicHeight mat-stretch-tabs>
+  <mat-tab label="Edit">
+    <div class="page-margins">
+      <mat-form-field>
+        <input matInput type="text" [(ngModel)]="state.title" placeholder="Title">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" [(ngModel)]="state.image" placeholder="Banner Image">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput cdkTextareaAutosize [(ngModel)]="state.description"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Content</mat-label>
+        <textarea matInput cdkTextareaAutosize [(ngModel)]="state.content"></textarea>
+        <mat-hint>use HTML!</mat-hint>
+      </mat-form-field>
+      <mat-divider></mat-divider>
+      <h2>Sources</h2>
+      <button mat-button (click)="addSource()">Add new</button>
+      <ng-container *ngFor="let source of state.sources; let i = index">
+        <mat-divider *ngIf="i > 0"></mat-divider>
+        <mat-form-field>
+          <span matPrefix>#</span>
+          <input matInput type="text" [(ngModel)]="source.tag" placeholder="tag">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea matInput cdkTextareaAutosize [(ngModel)]="source.description"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" [(ngModel)]="source.url" placeholder="URL">
+        </mat-form-field>
+      </ng-container>
+      
+    </div>
+  </mat-tab>
+  <mat-tab label="Preview">
+    <div class="article-banner" [style.backgroundImage]="'url(' + state.image + ')'"></div>
+    <div class="page-margins">
+      <h1 class="mat-body-4">{{state.title}}</h1>
+      <div [innerHTML]="state.content"></div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

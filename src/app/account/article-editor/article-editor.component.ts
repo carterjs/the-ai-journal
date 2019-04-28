@@ -3,13 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-interface Article {
-  title: string;
-  image: string;
-  description: string;
-  content: string
-};
+import { Article } from 'src/app/interfaces/article';
 
 @Component({
   selector: 'app-article-editor',
@@ -31,9 +25,16 @@ export class ArticleEditorComponent {
     const article = this.articleService.get(id);
     if(!!article) {
       if(this.noChanges()) {
-        this.old = this.next = this.strip(article);
+        if(!this.old) {
+          this.old = this.apply({} as Article, article);
+        }
+        if(!this.next) {
+          this.next = this.apply({} as Article, article);
+        }
+        this.apply(this.old, article);
+        this.apply(this.next, article);
       }
-      this.old = this.strip(article);
+      this.apply(this.old, article);
       return true;
     }
     return false;
@@ -49,13 +50,13 @@ export class ArticleEditorComponent {
     });
   }
 
-  strip(article: Article) {
-    return {
-      title: article.title,
-      image: article.image,
-      description: article.description,
-      content: article.content
-    };
+  apply(article1: Article, article2: Article) {
+    article1.title = article2.title;
+    article1.image = article2.image;
+    article1.description = article2.description;
+    article1.content = article2.content;
+    article1.sources = article2.sources || [];
+    return article1;
   }
 
   noChanges() {
@@ -65,7 +66,8 @@ export class ArticleEditorComponent {
     return this.old.title == this.next.title
         && this.old.image == this.next.image
         && this.old.description == this.next.description
-        && this.old.content == this.next.content;
+        && this.old.content == this.next.content
+        && this.old.sources == this.next.sources;
   }
 
 }

@@ -1,24 +1,27 @@
-<div class="page-margins" *ngIf="id$ | async as id">
+<div *ngIf="id$ | async as id">
   <section [@load]="!!articleService.get(id) ? 'shown' : 'hidden'" class="mat-typography">
     <ng-container *ngIf="articleService.get(id) as article">
-      <mat-button-toggle-group class="rating" #group="matButtonToggleGroup">
-        <mat-button-toggle>
-          <mat-icon>thumb_up</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle>
-          <mat-icon>thumb_down</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-      <ng-container *ngIf="article.authorData; else loading">
-        <h1 class="mat-display-1">{{article.title}}</h1> 
-        <mat-divider></mat-divider>
-        <div class="data">
-          <span class="author">by <a [routerLink]="['/users/' + article.author]">{{article.authorData.name}}</a></span>
-          <span class="date">{{article.date.seconds * 1000 | date}}</span>
-        </div>
-        <mat-divider></mat-divider>
-        <div  class="content" [innerHTML]="article.content"></div>
-      </ng-container>
+      <div class="article-banner" [style.backgroundImage]="'url(' + article.image + ')'"></div>
+      <div class="page-margins">
+        <mat-button-toggle-group class="rating" #group="matButtonToggleGroup">
+          <mat-button-toggle>
+            <mat-icon>thumb_up</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle>
+            <mat-icon>thumb_down</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+        <ng-container *ngIf="article.authorData; else loading">
+          <h1 class="mat-display-1">{{article.title}}</h1> 
+          <mat-divider></mat-divider>
+          <div class="data">
+            <span class="author">by <a [routerLink]="['/users/' + article.author]">{{article.authorData.name}}</a></span>
+            <span class="date">{{article.date.seconds * 1000 | date}}</span>
+          </div>
+          <mat-divider></mat-divider>
+          <div  class="content" [innerHTML]="article.content"></div>
+        </ng-container>
+      </div>
     </ng-container>
   </section>
 </div>
