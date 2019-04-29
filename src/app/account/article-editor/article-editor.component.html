@@ -1,11 +1,5 @@
 <div *ngIf="id$ | async as id">
-  <ng-container *ngIf="fetch(id) && !!next">
-    <app-article-form [state]="next"></app-article-form>
-    <div class="actions page-margins" align="end">
-      <mat-divider></mat-divider>
-      <button mat-raised-button (click)="reset()" color="warn" [disabled]="noChanges()">Discard</button>
-      <button mat-raised-button (click)="submit(id)" color="accent" [disabled]="noChanges()">Save</button>
-      <button (click)="addSource()">Add source</button>
-    </div>
+  <ng-container *ngIf="articleService.get(id)">
+    <app-article-form [state]="articleService.get(id)" [submit]="submit(id)"></app-article-form>
   </ng-container>
 </div>

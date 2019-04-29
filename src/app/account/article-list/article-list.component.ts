@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { load } from 'src/app/animations/load';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-article-list',
@@ -15,14 +16,13 @@ export class ArticleListComponent {
 
   query: string = "";
 
-  constructor(private articleService: ArticleService, private authService: AuthService) { }
+  constructor(private articleService: ArticleService, private authService: AuthService, private snackBar: MatSnackBar) { }
 
-  filter(articles, query) {
-    return articles.filter(article => {
-      if('title' in article) {
-        return article.title.toLowerCase().includes(query.toLowerCase())
-      }
-      return true;
+  delete(id) {
+    this.articleService.delete(id).then(() => {
+      this.snackBar.open("Article deleted.", "Dismiss", {
+        duration: 5000
+      });
     });
   }
 

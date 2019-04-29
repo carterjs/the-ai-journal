@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Article } from '../interfaces/article';
 
 @Injectable({
   providedIn: 'root'
@@ -29,10 +30,6 @@ export class ArticleService {
     });
   }
 
-  fetch() {
-    
-  }
-
   get(id: string) {
     const f = (this.articles || []).filter(article => article.id == id);
     return f.length > 0 ? f[0] : null;
@@ -43,7 +40,20 @@ export class ArticleService {
   }
 
   update(id, newData: {}) {
+    console.log(id);
+    console.log(newData);
     return this.af.doc('articles/' + id).update(newData);
+  }
+
+  create(article: Article, uid) {
+    return this.af.collection('articles').add(Object.assign(article, {
+      date: new Date(),
+      author: uid
+    }));
+  }
+
+  delete(id) {
+    return this.af.doc('articles/' + id).delete();
   }
 
 }

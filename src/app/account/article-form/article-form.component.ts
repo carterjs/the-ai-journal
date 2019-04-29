@@ -13,6 +13,9 @@ export class ArticleFormComponent {
   @Input('state')
   state: Article
 
+  @Input('submit')
+  submit = () => {};
+
   constructor(private dialog: MatDialog) { }
 
   addSource() {
@@ -27,6 +30,9 @@ export class ArticleFormComponent {
 
     dialogRef.afterClosed().subscribe(newSource => {
       if(!!newSource) {
+        if(!this.state.sources) {
+          this.state.sources = [];
+        }
         this.state.sources.push(newSource);
       }
     });

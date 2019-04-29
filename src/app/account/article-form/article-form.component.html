@@ -1,15 +1,15 @@
-<div class="article-banner" [style.backgroundImage]="'url(' + state.image + ')'"></div>
+<div class="article-banner" [style.backgroundImage]="'url(' + state.image + ')'" *ngIf="!!state.image"></div>
 <div class="page-margins">
   <h2>Data</h2>
   <mat-form-field>
-    <input matInput type="text" [(ngModel)]="state.image" placeholder="Banner Image">
+    <input matInput type="text" [(ngModel)]="state.image" #image="ngModel" placeholder="Banner Image" required>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" [(ngModel)]="state.title" placeholder="Title">
+    <input matInput type="text" [(ngModel)]="state.title" #title="ngModel" placeholder="Title" required>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Description</mat-label>
-    <textarea matInput cdkTextareaAutosize [(ngModel)]="state.description"></textarea>
+    <textarea matInput cdkTextareaAutosize [(ngModel)]="state.description" #description="ngModel" required></textarea>
   </mat-form-field>
   <h2>Sources</h2>
   <button mat-button (click)="addSource()">Add new</button>
@@ -25,7 +25,7 @@
       <div class="wrapper">
         <mat-form-field>
           <mat-label>Content</mat-label>
-          <textarea matInput cdkTextareaAutosize [(ngModel)]="state.content"></textarea>
+          <textarea matInput cdkTextareaAutosize [(ngModel)]="state.content" #content="ngModel" required></textarea>
           <mat-hint>use HTML!</mat-hint>
         </mat-form-field>
       </div>
@@ -34,4 +34,8 @@
       <div class="wrapper" [innerHTML]="state.content"></div>
     </mat-tab>
   </mat-tab-group>
+  <mat-divider></mat-divider>
+  <div class="actions" align="end">
+    <button mat-raised-button [disabled]="image.invalid || title.invalid || description.invalid || content.invalid" (click)="submit(state)" color="accent">Save</button>
+  </div>
 </div>

@@ -63,6 +63,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-size: cover;
   background-position: center center;
 }
-.data-source {
-    text-decoration: underline;
+cite {
+    font-style: normal;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
 }

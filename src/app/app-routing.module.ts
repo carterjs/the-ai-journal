@@ -6,12 +6,22 @@ import { ArticleDetailComponent } from './core/article-detail/article-detail.com
 import { GuestGuard } from './guards/guest.guard';
 import { UserGuard } from './guards/user.guard';
 import { UserComponent } from './core/user/user.component';
+import { HistoryComponent } from './core/history/history.component';
+import { GuidelinesComponent } from './core/guidelines/guidelines.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
     component: HomeComponent
+  },
+  {
+    path: 'history',
+    component: HistoryComponent
+  },
+  {
+    path: 'guidelines',
+    component: GuidelinesComponent
   },
   {
     path: 'auth',

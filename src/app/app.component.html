@@ -1,8 +1,9 @@
 <mat-sidenav-container fullscreen>
   <mat-sidenav #sidenav align="end">
-    <mat-nav-list>
+    <mat-nav-list (click)="sidenav.close()">
       <a mat-list-item [routerLink]="['/']">Home</a>
-      <a mat-list-item [routerLink]="['/about']">About</a>
+      <a mat-list-item [routerLink]="['/history']">History</a>
+      <a mat-list-item [routerLink]="['/guidelines']">Guidelines</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -13,13 +14,11 @@
       </a>
       <h1 *ngIf="(smallScreen | async)" class="main-title centered">The AI Journal</h1>
       <nav *ngIf="!(smallScreen | async)" class="spacer">
-        <a mat-button [routerLink]="['/about']">About</a>
+        <a mat-button [routerLink]="['/history']">History</a>
+        <a mat-button [routerLink]="['/guidelines']">Guidelines</a>
       </nav>
       <ng-container *ngIf="authService.user | async; else guestToolbar">
-        <button mat-icon-button [matMenuTriggerFor]="account" *ngIf="smallScreen | async; else email"><mat-icon>account_circle</mat-icon></button>
-        <ng-template #email>
-          <button mat-button [matMenuTriggerFor]="account">{{(authService.user | async)?.email}}</button>
-        </ng-template>
+        <button mat-icon-button [matMenuTriggerFor]="account"><mat-icon>account_circle</mat-icon></button>
         <mat-menu #account="matMenu" align="end">
           <a mat-menu-item [routerLink]="['/account/articles']">
             <mat-icon>mode_edit</mat-icon>

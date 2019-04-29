@@ -1,9 +1,10 @@
-.main-title {
+.main-title, .main-title h1 {
     font-weight: bold;
     font-size: 1.1em;
     color: #fff;
     text-decoration: none;
     margin-right: 8px;
+    letter-spacing: 0.5ch;
 }
 .main-title.centered {
     flex: auto;
@@ -11,4 +12,7 @@
 }
 .spacer {
     flex: auto;
+    a {
+        margin-right: 8px;
+    }
 }

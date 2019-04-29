@@ -1,5 +1,16 @@
-<div class="page-margins" *ngIf="authService.user | async as user">
-  <h2>Signed in as {{user.email}}</h2>
-  <button mat-button (click)="authService.signOut()">Sign out</button>
+<div class="page-margins" *ngIf="authService.data | async as data">
+  <h2 class="mat-display-2 greeting">Hello, {{data.name}}</h2>
+  <mat-divider></mat-divider>
+  <div class="wrapper">
+    <mat-form-field>
+      <input matInput type="text" [value]="data.name" placeholder="Name" #name required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Bio</mat-label>
+      <textarea matInput [value]="data.bio" cdkTextareaAutosize #bio required></textarea>
+    </mat-form-field>
+    <div class="actions" align="end" *ngIf="authService.user | async as user">
+      <button mat-raised-button (click)="save(user.uid, name.value, bio.value)" color="accent" [disabled]="name.invalid || bio.invalid">Save</button>
+    </div>
+  </div>
 </div>
-<p>{{authService.data | async | json}}</p>

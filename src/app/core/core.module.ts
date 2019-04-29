@@ -10,9 +10,11 @@ import { UserComponent } from './user/user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from '../shared/shared.module';
 import { SourceSheetComponent } from './source-sheet/source-sheet.component';
+import { HistoryComponent } from './history/history.component';
+import { GuidelinesComponent } from './guidelines/guidelines.component';
 
 @NgModule({
-  declarations: [HomeComponent, AuthComponent, ArticleDetailComponent, UserComponent, SourceSheetComponent],
+  declarations: [HomeComponent, AuthComponent, ArticleDetailComponent, UserComponent, SourceSheetComponent, HistoryComponent, GuidelinesComponent],
   imports: [
     RouterModule,
     CommonModule,

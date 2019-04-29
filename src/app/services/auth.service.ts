@@ -14,7 +14,7 @@ export class AuthService {
   user: Observable<User>;
   data: Observable<any>;
 
-  constructor(af: AngularFirestore, private afAuth: AngularFireAuth, router: Router) {
+  constructor(private af: AngularFirestore, private afAuth: AngularFireAuth, router: Router) {
     this.user = afAuth.user;
     // Redirect on authState changes
     afAuth.authState.pipe(
@@ -58,6 +58,10 @@ export class AuthService {
 
   signOut() {
     this.afAuth.auth.signOut();
+  }
+
+  updateData(uid, name, bio) {
+    return this.af.doc('users/' + uid).update({name, bio});
   }
 
 }

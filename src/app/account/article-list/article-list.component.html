@@ -1,20 +1,19 @@
 <div class="page-margins" [@load]="authService.user | async">
-  <mat-form-field>
-    <input matInput type="text" [(ngModel)]="query" placeholder="Filter">
-    <mat-hint>by title</mat-hint>
-  </mat-form-field>
+  <h2 class="title">Your articles</h2>
+  <a mat-fab [routerLink]="['/account/articles/new']" class="create"><mat-icon>add</mat-icon></a>
   <ng-container *ngIf="authService.user | async as user">
     <div class="cards" [@load]="articleService.getByAuthor(user.uid)">
       <ng-container *ngIf="articleService.getByAuthor(user.uid) as articles">
-        <mat-card *ngFor="let article of filter(articles, query)">
+        <mat-card *ngFor="let article of articles">
           <div mat-card-image [style.backgroundImage]="'url(' + article.image + ')'" class="controlled-image"></div>
           <mat-card-header>
             <mat-card-title>{{article.title}}</mat-card-title>
           </mat-card-header>
           <mat-card-content align="end">
             <p class="article-description">{{article.description}}</p>
-            <a mat-button [routerLink]="['/' + article.id]">View</a>
+            <button mat-button (click)="delete(article.id)" color="warn">Delete</button>
             <a mat-button [routerLink]="['/account/articles/' + article.id]">Edit</a>
+            <a mat-button [routerLink]="['/' + article.id]">View</a>
           </mat-card-content>
         </mat-card>
       </ng-container>
