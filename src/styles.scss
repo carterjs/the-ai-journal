@@ -70,3 +70,19 @@ cite {
         text-decoration: underline;
     }
 }
+
+img, .controlled-image {
+    animation: 500ms load ease-in-out;
+}
+
+@keyframes load {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { load } from 'src/app/animations/load';
-import { MatDialog, MatBottomSheetRef, MatBottomSheet } from '@angular/material';
+import { MatDialog, MatBottomSheetRef, MatBottomSheet, MatSnackBar } from '@angular/material';
 import { SourceSheetComponent } from '../source-sheet/source-sheet.component';
 import { AngularFirestore } from '@angular/fire/firestore';
 
@@ -22,7 +22,7 @@ export class ArticleDetailComponent {
   id$: Observable<any>;
   rating: boolean;
 
-  constructor(private articleService: ArticleService, route: ActivatedRoute, private bottomSheet: MatBottomSheet, private authService: AuthService, private af: AngularFirestore) {
+  constructor(private articleService: ArticleService, route: ActivatedRoute, private bottomSheet: MatBottomSheet, private authService: AuthService, private af: AngularFirestore, private snackBar: MatSnackBar) {
     this.id$ = route.paramMap.pipe(map(params => params.get('id')));
     this.id$.subscribe(id => {
       document.addEventListener('click', (e: MouseEvent) => {
@@ -36,12 +36,11 @@ export class ArticleDetailComponent {
         if(!user) {
           return;
         }
-        af.doc(`ratings/${user.uid}`).valueChanges().subscribe(ratings => {
-          if(id in ratings) {
-            this.rating = ratings[id];
-          } else {
-            this.rating = null;
+        af.doc(`ratings/${id}_${user.uid}`).valueChanges().subscribe((rating: {like: boolean}) => {
+          if(!rating) {
+            return;
           }
+          this.rating = rating.like;
         });
       });
     });
@@ -67,7 +66,15 @@ export class ArticleDetailComponent {
   }
 
   rate(id, uid, like) {
-    this.af.doc(`ratings/${uid}`).set({[id]: like});
+    this.af.doc(`ratings/${id}_${uid}`).set({
+      article: id,
+      user: uid,
+      like
+    }).then(() => {
+      this.snackBar.open(`Article ${like ? "liked" : "disliked"}.`, "Dismiss", {
+        duration: 5000
+      });
+    });
   }
 
 }

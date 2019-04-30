@@ -1,5 +1,7 @@
-<div *ngIf="id$ | async as id">
-  <ng-container *ngIf="articleService.get(id)">
-    <app-article-form [state]="articleService.get(id)" [submit]="submit(id)"></app-article-form>
-  </ng-container>
-</div>
+<ng-container *ngIf="id$ | async as id">
+  <div [@load]="articleService.get(id) ? 'shown' : 'hidden'">
+    <ng-container *ngIf="articleService.get(id)">
+      <app-article-form [state]="articleService.get(id)" [submit]="submit(id)"></app-article-form>
+    </ng-container>
+  </div>
+</ng-container>

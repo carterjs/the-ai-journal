@@ -4,11 +4,15 @@ import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { load } from 'src/app/animations/load';
 
 @Component({
   selector: 'app-article-creator',
   templateUrl: './article-creator.component.html',
-  styleUrls: ['./article-creator.component.scss']
+  styleUrls: ['./article-creator.component.scss'],
+  animations: [
+    load
+  ]
 })
 export class ArticleCreatorComponent {
 

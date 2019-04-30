@@ -5,11 +5,15 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Article } from 'src/app/interfaces/article';
 import { MatSnackBar } from '@angular/material';
+import { load } from 'src/app/animations/load';
 
 @Component({
   selector: 'app-article-editor',
   templateUrl: './article-editor.component.html',
-  styleUrls: ['./article-editor.component.scss']
+  styleUrls: ['./article-editor.component.scss'],
+  animations: [
+    load
+  ]
 })
 export class ArticleEditorComponent {
 
