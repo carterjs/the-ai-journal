@@ -23,7 +23,8 @@ export class ArticleCreatorComponent {
       title: "New Article",
       description: "",
       image: "",
-      content: ""
+      content: "",
+      sources: []
     }
   }
 
