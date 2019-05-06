@@ -65,6 +65,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 cite {
     font-style: normal;
+    font-weight: bold;
     cursor: pointer;
     &:hover {
         text-decoration: underline;
@@ -84,5 +85,26 @@ img, .controlled-image {
     }
     100% {
         opacity: 1;
+    }
+}
+
+.content, .content-editor {
+    margin-top: 64px;
+    font-size: 1.25em;
+    line-height: 2;
+    p {
+        text-indent: 2em;
+        margin: 1em 0 1em 0;
+    }
+    img {
+        border-radius: 3px;
+        box-shadow: 0px 0px 5px #ddd;
+        display: block;
+        max-width: 100%;
+        margin: 8px auto 8px auto;
+    }
+    .center {
+        display: block;
+        text-align: center;
     }
 }
